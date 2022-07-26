@@ -1,6 +1,6 @@
 <launch>
     <arg name="rgbd" default="true"/>
-    <arg name="common_frame_id" default="base_footprint"/>
+    <arg name="common_frame_id" default="base_link"/>
 
     <!-- Nodelet manager for all detected person association-related nodelets -->
     <group ns="/spencer/perception_internal/detected_person_association">
@@ -27,9 +27,9 @@
             <arg name="common_frame_id" value="$(arg common_frame_id)"/>
         </include>
 
-        <include file="$(find spencer_detected_person_association)/launch/aggregate_rgbd_ground_hog.launch">
+        <!-- <include file="$(find spencer_detected_person_association)/launch/aggregate_rgbd_ground_hog.launch">
             <arg name="common_frame_id" value="$(arg common_frame_id)"/>
-        </include>
+        </include> -->
     </group>
 
 

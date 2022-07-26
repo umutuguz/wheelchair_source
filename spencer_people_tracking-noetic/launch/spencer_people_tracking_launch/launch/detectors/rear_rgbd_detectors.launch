@@ -4,7 +4,7 @@
     <arg name="hog" default="false"/>
 
     <arg name="ground_plane" value="/spencer/sensors/rgbd_rear_top/ground_plane"/>
-    <arg name="base_footprint_frame_id" default="base_footprint"/>
+    <arg name="base_footprint_frame_id" default="base_link"/>
 
     <arg name="detection_id_increment" default="20"/>
 
