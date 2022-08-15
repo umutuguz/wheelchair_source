@@ -11,7 +11,7 @@
           <param name="frame_id"            type="string" value="rp_laser_back"/>
           <param name="inverted"            type="bool"   value="false"/>
           <param name="angle_compensate"    type="bool"   value="true"/>
-          <remap from="rp_scan"	to="rp_scan_back"/>
+          <!-- <remap from="rp_scan"	to="rp_scan_back"/> -->
         </node>
     </group>
   
@@ -23,7 +23,7 @@
           <param name="frame_id"            type="string" value="rp_laser_front"/>
           <param name="inverted"            type="bool"   value="false"/>
           <param name="angle_compensate"    type="bool"   value="true"/>
-          <remap from="rp_scan"	to="rp_scan_front"/>
+          <!-- <remap from="rp_scan"	to="rp_scan_front"/> -->
         </node>
     </group>
     

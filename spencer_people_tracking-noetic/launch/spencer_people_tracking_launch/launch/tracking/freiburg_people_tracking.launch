@@ -6,7 +6,7 @@
     <arg name="fuse_detections" default="true"/>
     <arg name="static_map_filter" default="true"/>
     <arg name="rgbd" default="false"/>
-    <arg name="laser_low_confidence_detections" default="false"/>
+    <arg name="laser_low_confidence_detections" default="true"/>
     
     <arg name="tracker" default="true"/>
     <arg name="occlusion_geodesics" default="false"/>

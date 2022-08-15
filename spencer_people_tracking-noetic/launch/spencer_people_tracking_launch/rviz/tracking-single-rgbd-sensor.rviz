@@ -14,6 +14,7 @@ Panels:
         - /Fused detections1/Z offset1
         - /Fused detections1/Render covariances1
         - /TrackedPersons Visually Confirmed1/Render covariances1
+        - /LaserScan1
       Splitter Ratio: 0.5919539928436279
     Tree Height: 369
   - Class: rviz/Selection
@@ -313,6 +314,34 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /back_rp/scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 59; 59; 59
@@ -331,7 +360,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.583529472351074
+      Distance: 3.7217233180999756
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -339,17 +368,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 3.1134703159332275
-        Y: 0.14758963882923126
-        Z: 0.6897584199905396
+        X: 1.0926063060760498
+        Y: -0.4408388137817383
+        Z: 1.2497336864471436
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.09979826956987381
+      Pitch: 0.18479837477207184
       Target Frame: <Fixed Frame>
-      Yaw: 3.1740500926971436
+      Yaw: 3.089050531387329
     Saved:
       - Class: rviz/Orbit
         Distance: 15.420499801635742
