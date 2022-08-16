@@ -78,10 +78,12 @@ Processing enabled by this node:
   <arg name="enable_gyro"         default="false"/>
   <arg name="enable_accel"        default="false"/>
 
-  <arg name="enable_pointcloud"   default="true"/>
+  <arg name="enable_pointcloud"   default="false"/>
   <arg name="enable_sync"         default="false"/>
-  <arg name="align_depth"         default="false"/>
+  <arg name="align_depth"         default="false "/>
   <arg name="filters"             default="pointcloud"/>
+
+  <arg name="initial_reset"             default="true"/>
 
   <arg name="publish_tf"          default="true"/>
   <arg name="tf_publish_rate"     default="0"/> <!-- 0 - static transform -->
@@ -89,7 +91,7 @@ Processing enabled by this node:
   <!-- rgbd_launch specific arguments -->
 
   <!-- Arguments for remapping all device namespaces -->
-  <arg name="rgb"                             default="rgb" />
+  <arg name="rgb"                             default="color" />
   <arg name="ir"                              default="infra1" />
   <arg name="depth"                           default="depth" />
   <arg name="depth_registered_pub"            default="depth_registered" />
@@ -160,6 +162,8 @@ Processing enabled by this node:
       <arg name="publish_tf"               value="$(arg publish_tf)"/>
       <arg name="tf_publish_rate"          value="$(arg tf_publish_rate)"/>
 
+      <arg name="initial_reset"            value="$(arg initial_reset)"/>
+      
       <!-- <remap from="/camera/color/image_raw" to="/camera/rgb/image_rect_color" /> -->
     </include>
 

@@ -24,6 +24,9 @@
             <arg name="upper_body_detections" value="upper_body_detector/detections" />
             <arg name="upper_body_bb_centres" value="upper_body_detector/bounding_box_centres" />
             <arg name="upper_body_image" value="image" />
+            <arg name="upper_body_markers" default="/upper_body_detector/marker_array" />
+            <arg name="upper_body_roi" default="/upper_body_detector/roi" />
+            <arg name="upper_body_closest_bb_centres" default="/upper_body_detector/closest_bounding_box_centre" />
             <arg name="ground_plane" value="$(arg ground_plane)" />
             <arg name="detection_id_offset" value="3"/>
             <arg name="detection_id_increment" value="$(arg detection_id_increment)"/>

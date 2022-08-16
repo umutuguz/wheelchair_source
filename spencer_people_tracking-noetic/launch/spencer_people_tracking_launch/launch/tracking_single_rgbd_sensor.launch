@@ -1,7 +1,8 @@
 <launch>
     <!-- Launch file arguments -->
-    <arg name="height_above_ground" default="1.7"/>  <!-- in meters, assumes a horizontally oriented RGB-D sensor; important for accurate detection -->
+    <arg name="height_above_ground" default="1.70"/>  <!-- in meters, assumes a horizontally oriented RGB-D sensor; important for accurate detection -->
     <arg name="load_driver" default="false"/>  <!-- set to false if you are already running OpenNi from elsewhere -->
+    <arg name="load_realsense_driver" default="false"/>  <!-- set to false if you are already running OpenNi from elsewhere -->
     <arg name="visualization" default="true"/> <!-- start Rviz with predefined configuration? -->
     <arg name="dummy_transforms" default="true"/> <!-- publish TF transform for sensor to groundplane -->
     <arg name="use_openni1" default="false"/> <!-- compatibility for Kinect v1 -->
@@ -13,17 +14,29 @@
     <arg name="base_footprint_frame_id" default="base_link"/>  <!-- name of the robot's base frame after projection onto the ground plane -->
     <arg name="world_frame_id" default="odom"/>  <!-- this is the fixed tracking frame -->
 
-    <!-- Run OpenNi driver if desired -->
-    <group ns="spencer/sensors" if="$(arg load_driver)">
-        <arg name="driver_launchfile" value="$(find openni2_launch)/launch/openni2.launch" unless="$(arg use_openni1)"/>  <!-- Asus Xtion Pro / Primesense-->
-        <arg name="driver_launchfile" value="$(find openni_launch)/launch/openni.launch"   if="$(arg use_openni1)"/>      <!-- MS Kinect v1 -->
+    <!-- Run Realsense driver if desired -->
+    <group ns="spencer/sensors" if="$(arg load_realsense_driver)">
+        <arg name="driver_launchfile" value="$(find realsense2_camera)/launch/rs_rgbd.launch"/>  <!-- Realsense-->
 
         <include file="$(arg driver_launchfile)">
-          <arg name="camera" value="camera_link"/>
-          <arg name="device_id" value="#1"/>
-          <arg name="depth_registration" value="true"/>
+            <!--arg name="camera" value="rgbd"/-->
+            <!--arg name="device_id" value="#1"/-->
+            <!--arg name="depth_registration" value="true"/-->
+            <arg name="camera" value="rgbd_front_top"/>
         </include>
     </group>
+
+    <!-- Run OpenNi driver if desired -->
+    <!-- <group ns="spencer/sensors" if="$(arg load_driver)"> -->
+        <!-- <arg name="driver_launchfile" value="$(find openni2_launch)/launch/openni2.launch" unless="$(arg use_openni1)"/>  Asus Xtion Pro / Primesense -->
+        <!-- <arg name="driver_launchfile" value="$(find openni_launch)/launch/openni.launch"   if="$(arg use_openni1)"/>      MS Kinect v1 -->
+
+        <!-- <include file="$(arg driver_launchfile)"> -->
+          <!-- <arg name="camera" value="camera_link"/> -->
+          <!-- <arg name="device_id" value="#1"/> -->
+          <!-- <arg name="depth_registration" value="true"/> -->
+        <!-- </include> -->
+    <!-- </group>  -->
 
 
     <!-- Set ground plane distance -->
@@ -38,21 +51,19 @@
 
     <!-- Detectors -->
     <group>
-        <!-- Remap input topics of detectors from "depth" to "depth_registered" in case we are using the OpenNi 1 driver (for MS Kinect).
-             Necessary because OpenNi 1 does not publish both the registered and unregistered depth images (as OpenNi 2 does), and we want to keep depth registration enabled. -->
-        <remap from="/spencer/sensors/rgbd_front_top/depth/image_rect" to="/spencer/sensors/rgbd_front_top/depth_registered/hw_registered/image_rect"  if="$(arg use_openni1)"/>
-        <remap from="/spencer/sensors/rgbd_front_top/depth/camera_info" to="/spencer/sensors/rgbd_front_top/depth_registered/camera_info" if="$(arg use_openni1)"/>
-
         <include file="$(find spencer_people_tracking_launch)/launch/detectors/front_rgbd_detectors.launch">
             <arg name="upper_body" default="$(arg use_upper_body_detector)"/>
             <arg name="pcl_detector" value="$(arg use_pcl_detector)"/>
             <arg name="hog" default="$(arg use_hog_detector)"/>
             <arg name="base_footprint_frame_id" value="$(arg base_footprint_frame_id)"/>
-
-            <remap from="/camera/rgb/image_rect_color" to="/camera/color/image_raw" />
+        
         </include>
     </group>
-    
+
+    <remap from="/camera/rgb/image_rect_color" to="/camera/color/image_raw" />
+
+   <!-- Laser detectors -->
+    <include file="$(find spencer_people_tracking_launch)/launch/detectors/leg_detectors.launch"/> 
 
     <!-- People tracking -->
     <include file="$(find spencer_people_tracking_launch)/launch/tracking/freiburg_people_tracking.launch">
@@ -65,8 +76,8 @@
     <!-- As there is not yet any high-recall/low-confidence detector for RGB-D, and we are not using laser, tracks may get deleted too quickly in case of missed detections.
          To deal with this, for the moment, we increase the maximum number of occluded frames to be  a bit more tolerant towards missed detections.
          This works fine in uncrowded environments which are not very dynamic. -->
-    <rosparam param="/spencer/perception_internal/people_tracking/srl_nearest_neighbor_tracker/max_occlusions_before_deletion">50</rosparam>
-    <rosparam param="/spencer/perception_internal/people_tracking/srl_nearest_neighbor_tracker/max_occlusions_before_deletion_of_mature_track">200</rosparam>
+    <rosparam param="/spencer/perception_internal/people_tracking/srl_nearest_neighbor_tracker/max_occlusions_before_deletion">100</rosparam>
+    <rosparam param="/spencer/perception_internal/people_tracking/srl_nearest_neighbor_tracker/max_occlusions_before_deletion_of_mature_track">300</rosparam>
 
     <!-- Group tracking -->
     <!-- <include file="$(find spencer_people_tracking_launch)/launch/tracking/group_tracking.launch"/>  -->

@@ -7,8 +7,8 @@ Launches the nearest-neighbor tracker with a set of parameters that worked well 
     <arg name="world_frame" default="odom"/>
 
     <arg name="use_laser_shade_occlusion_manager" default="false"/>
-    <arg name="use_imm" default="false"/>
-    <arg name="imm_param_file" default="imm_CT_CV.yaml"/>
+    <arg name="use_imm" default="true"/>
+    <arg name="imm_param_file" default="imm_CT_CV_CT.yaml"/>
     <arg name="use_initiation_logic" default="true"/>
     <arg name="initiation_logic_param_file" default="logic_initiator.yaml"/>
     <arg name="ekf_param_file" default="ekf_default.yaml"/>
