@@ -3,7 +3,7 @@ Launches the nearest-neighbor tracker with a set of parameters that worked well 
 -->
 
 <launch>
-    <arg name="subscriber_queue_size" default="1"/>
+    <arg name="subscriber_queue_size" default="20"/>
     <arg name="world_frame" default="odom"/>
 
     <arg name="use_laser_shade_occlusion_manager" default="false"/>

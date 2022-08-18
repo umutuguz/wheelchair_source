@@ -419,7 +419,7 @@ int main(int argc, char **argv)
     // Use a private node handle so that multiple instances of the node can be run simultaneously
     // while using different parameters.
     ros::NodeHandle private_node_handle_("~");
-    private_node_handle_.param("queue_size", queue_size, int(5));
+    private_node_handle_.param("queue_size", queue_size, int(20));
     private_node_handle_.param("config_file", config_file, string(""));
     private_node_handle_.param("template_file", template_path, string(""));
 
@@ -435,7 +435,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    private_node_handle_.param("rgb_image", topic_color_image, string("/rgb/image_rect_color"));
+    private_node_handle_.param("rgb_image", topic_color_image, string("/color/image_rect_color"));
     topic_color_image = cam_ns + topic_color_image;
     string topic_camera_info;
     private_node_handle_.param("camera_info_depth", topic_camera_info, string("/depth/camera_info"));

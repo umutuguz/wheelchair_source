@@ -7,14 +7,13 @@
     <arg name="template_file" default="$(find rwth_upper_body_detector)/config/upper_body_template.yaml" />
     <arg name="height_above_ground" default="1.7"/>  <!-- in meters, assumes a horizontally oriented RGB-D sensor; important for accurate detection -->
 
-    <arg name="queue_size" default="5" />
+    <arg name="queue_size" default="20" />
     <arg name="camera_namespace" default="/camera" />
 
     <!-- input topic names, can either be configured via these args or via remappings -->
     <arg name="depth_image" default="/depth/image_rect_raw" />
-    <arg name="rgb_image" default="/color/image_raw" />
+    <arg name="rgb_image" default="/color/image_raw/image_topics" />
     <arg name="camera_info_depth" default="/depth/camera_info" />
-    <arg name="rgb_image_rect_color" default="/rgb/image_rect_color/image_topics" />
 
     <!-- output topic names, can either be configured via these args or via remappings -->
     <arg name="upper_body_detections" default="/upper_body_detector/detections" />
@@ -59,7 +58,6 @@
         <param name="ground_plane" value="$(arg ground_plane)" type="string"/>
         <param name="depth_image" value="$(arg depth_image)" type="string"/>
         <param name="rgb_image" value="$(arg rgb_image)" type="string"/>
-        <param name="rgb_image_rect_color" value="$(arg rgb_image_rect_color)" type="string"/>
         <param name="camera_info_depth" value="$(arg camera_info_depth)" type="string"/>
 
         <param name="upper_body_detections" value="$(arg upper_body_detections)" type="string"/>

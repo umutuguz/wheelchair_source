@@ -16,7 +16,7 @@
             <param name="num_frames_to_observe" value="12"/>
             <param name="max_timespan_to_observe" value="10.0"/>
             <param name="min_required_avg_velocity" value="1.0"/>
-            <param name="delete_unseen_tracks_after_num_frames" value="3"/>
+            <param name="delete_unseen_tracks_after_num_frames" value="15"/>
             <remap from="input_tracks" to="/spencer/perception/tracked_persons_orientation_fixed"/>
             <remap from="output_tracks" to="/spencer/perception/tracked_persons_moving"/>
         </node>

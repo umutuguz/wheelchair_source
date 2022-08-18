@@ -5,7 +5,7 @@ upper_body_detector:
     #=====================================
     # Distance Range Accepted Detections
     #=====================================
-    distance_range_accepted_detections: 10 # up to what distance detections are kept. All detections after that distance are rejected
+    distance_range_accepted_detections: 4 # up to what distance detections are kept. All detections after that distance are rejected
 
     #=====================================
     # ROI
@@ -63,7 +63,7 @@ upper_body_detector:
     #===========================
     # height and width of images
     #===========================
-    dImWidth: 640
+    dImWidth: 848
     dImHeight: 480
 
     #====================================
