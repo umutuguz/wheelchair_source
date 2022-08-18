@@ -44,7 +44,7 @@
     <!-- <remap from="/camera/rgb/image_rect_color" to="/camera/color/image_raw" /> -->
 
    <!-- Laser detectors -->
-    <!-- <include file="$(find spencer_people_tracking_launch)/launch/detectors/leg_detectors.launch"/>  -->
+    <include file="$(find spencer_people_tracking_launch)/launch/detectors/leg_detectors.launch"/> 
 
     <!-- People tracking -->
     <include file="$(find spencer_people_tracking_launch)/launch/tracking/freiburg_people_tracking.launch">
