@@ -247,7 +247,7 @@ private:
     // Publish detected legs to /detected_leg_clusters and to rviz
     // They are ordered from closest to the laser scanner to furthest  
     int clusters_published_counter = 0;
-    int id_num = 1;      
+    uint64_t id_num = 1;      
     for (std::set<leg_tracker::Leg>::iterator it = leg_set.begin(); it != leg_set.end(); ++it)
     {
       // Publish to /detected_leg_clusters topic

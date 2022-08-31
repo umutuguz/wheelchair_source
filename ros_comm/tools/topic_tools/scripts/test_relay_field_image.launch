@@ -2,14 +2,13 @@
 
   <node pkg="topic_tools" type="relay_field"
         name="field_relayer"
-        args="/people_tracked /spencer/perception_internal/detected_persons/laser_detector_front spencer_tracking_msgs/DetectedPersons
+        args="/visualization_marker /spencer/perception_internal/detected_persons/laser_detector_front spencer_tracking_msgs/DetectedPersons
             '{header:
                 {seq: 1,
                 stamp: {secs: 1, nsecs: 0},
                 frame_id: m.header.frame_id},
             detections:
                 [detection_id: m.people..id,
-                confidence: 1,
                 pose:
                     {pose:
                         {position: 

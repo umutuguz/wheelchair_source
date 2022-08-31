@@ -651,7 +651,7 @@ class KalmanMultiTracker:
                         new_person.pose.orientation.y = quaternion[1]
                         new_person.pose.orientation.z = quaternion[2]
                         new_person.pose.orientation.w = quaternion[3] 
-                        new_person.id = person.id_num 
+                        new_person.id = person.id_num
                         people_tracked_msg.people.append(new_person)
 
                         # publish rviz markers       
