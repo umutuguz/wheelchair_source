@@ -1,4 +1,4 @@
-<launch>
+ <launch>
     <arg name="rgbd" default="true"/>
     <arg name="common_frame_id" default="base_link"/>
 

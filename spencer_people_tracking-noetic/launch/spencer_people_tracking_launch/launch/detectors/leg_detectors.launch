@@ -1,7 +1,7 @@
 <!-- Alternative launch file that launches two instances of the laser-based leg detector from wg-perception (needs to be installed separately) -->
 <launch>
     <arg name="front" default="true"/>  <!-- front detector enabled? -->
-    <arg name="rear" default="true"/>   <!-- rear detector enabled? -->
+    <arg name="rear" default="false"/>   <!-- rear detector enabled? -->
     
     <arg name="config_file" default="spencer2.yaml"/>
 
