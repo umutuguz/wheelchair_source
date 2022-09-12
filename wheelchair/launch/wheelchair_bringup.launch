@@ -21,7 +21,7 @@
     <include file="$(find rplidar_ros)/launch/rplidars.launch" />
 
     <!-- Run RealSense-->
-    <!-- <include file="$(find realsense2_camera)/launch/rs_rgbd.launch"/> -->
+    <include file="$(find realsense2_camera)/launch/rs_rgbd.launch"/>
 
     <!-- RP filter -->
     <include file="$(find wheelchair)/launch/rp_filter.launch" /> 

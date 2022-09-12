@@ -53,17 +53,19 @@ def newMessageReceived(PersonArray):
 
         # Construct DetectedPerson
         detectedPerson = DetectedPerson()
-        detectedPerson.modality = "umut"
+        detectedPerson.modality = str(Person.id)
         detectedPerson.confidence = 0.8
         detectedPerson.pose.pose.position = Person.pose.position
 
         # Covariance
-        for x in range(0, 3):
-            for y in range(0, 3):
-                detectedPerson.pose.covariance[y*6 + x] = 0.1
+        # for x in range(0, 3):
+            # for y in range(0, 3):
+                # detectedPerson.pose.covariance[y*6 + x] = 0.1 * x
 
-        for i in range(3, 6):
-            detectedPerson.pose.covariance[i*6 + i] = 99999.0
+        # for i in range(3, 6):
+            # detectedPerson.pose.covariance[i*6 + i] = 0.1
+            
+        detectedPerson.pose.covariance = [0.1, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0.1]
 
        # Detection ID
         if useObjectId:
@@ -90,7 +92,7 @@ useObjectId = rospy.get_param("~use_object_id", True)
 
 
 # Create publisher and subscriber
-inputTopic = rospy.resolve_name("/people_tracked")
+inputTopic = rospy.resolve_name("/spencer/perception_internal/people_detection/laser_detector_front/people_tracked")
 outputTopic = rospy.resolve_name("/spencer/perception/detected_persons")
 sub = rospy.Subscriber(inputTopic, PersonArray, newMessageReceived, queue_size=5)
 pub = rospy.Publisher(outputTopic, DetectedPersons, queue_size=5)
