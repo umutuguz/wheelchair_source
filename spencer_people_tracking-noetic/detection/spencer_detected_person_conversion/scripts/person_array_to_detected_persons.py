@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 """
-Converts a people_msgs/PositionMeasurementArray into spencer_tracking_msgs/DetectedPersons which can be processed using a tracker, or visualized using
+Converts a leg_tracker/PersonArray into spencer_tracking_msgs/DetectedPersons which can be processed using a tracker, or visualized using
 spencer_tracking_rviz_plugin. This conversion is lossless except for the co-occurrence matrix and the object identifier string.
 """
 import rospy, re

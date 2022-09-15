@@ -22,12 +22,12 @@
     args="0 0 0.16     0 0 0   /map /odom 100" /> -->
 
     <!-- Run Realsense driver if desired -->
-    <group ns="spencer/sensors" if="$(arg load_realsense_driver)">
-        <arg name="driver_launchfile" value="$(find realsense2_camera)/launch/rs_rgbd.launch"/>  <!-- Realsense-->
-        <include file="$(arg driver_launchfile)">
-            <arg name="camera" value="camera"/>
-        </include>
-    </group>
+    <!-- <group ns="spencer/sensors" if="$(arg load_realsense_driver)"> -->
+        <!-- <arg name="driver_launchfile" value="$(find realsense2_camera)/launch/rs_rgbd.launch"/>  Realsense -->
+        <!-- <include file="$(arg driver_launchfile)"> -->
+            <!-- <arg name="camera" value="camera"/> -->
+        <!-- </include> -->
+    <!-- </group> -->
 
     <!-- Set ground plane distance -->
     <rosparam param="/spencer/perception_internal/people_detection/ground_plane/distance" subst_value="true">$(arg height_above_ground)</rosparam>

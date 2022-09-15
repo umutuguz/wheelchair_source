@@ -5,7 +5,7 @@ upper_body_detector:
     #=====================================
     # Distance Range Accepted Detections
     #=====================================
-    distance_range_accepted_detections: 5 # up to what distance detections are kept. All detections after that distance are rejected
+    distance_range_accepted_detections: 4 # up to what distance detections are kept. All detections after that distance are rejected
 
     #=====================================
     # ROI
