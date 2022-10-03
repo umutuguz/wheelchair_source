@@ -13,14 +13,14 @@
       </node>
     </group>
   
-    <group ns = "$(arg back_rp)" if="$(arg rear)">
+    <!-- <group ns = "$(arg back_rp)" if="$(arg rear)"> -->
       <!-- <remap from = "scan_filtered" to ="rp_laser_back_filtered" /> -->
-      <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter_back" if="$(arg rear)">
-        <rosparam command="load" file="$(find wheelchair)/param/laser_back_rp.yaml" />
-        <remap from="scan_back" to="/back_rp/rp_scan_back" />
-        <remap from="scan_filtered"	to="rp_scan_filtered_back"/>
-      </node>
-    </group>
+      <!-- <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter_back" if="$(arg rear)"> -->
+        <!-- <rosparam command="load" file="$(find wheelchair)/param/laser_back_rp.yaml" /> -->
+        <!-- <remap from="scan_back" to="/back_rp/rp_scan_back" /> -->
+        <!-- <remap from="scan_filtered"	to="rp_scan_filtered_back"/> -->
+      <!-- </node> -->
+    <!-- </group> -->
 
   </launch> 
   

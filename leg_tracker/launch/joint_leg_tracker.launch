@@ -2,7 +2,7 @@
 <launch>
   <!-- params -->
 
-  <arg name="open_rviz" default="true" />
+  <arg name="open_rviz" default="false" />
 
   <param name="forest_file" value="$(find leg_tracker)/config/trained_leg_detector_res=0.33.yaml" />
   <param name="scan_topic" value="/front_rp/rp_scan_filtered_front" />
