@@ -3,12 +3,11 @@
     <!-- Arguments-->
     <arg name="open_rviz" default="false" />
     <arg name="front" default="true"/>
-    <arg name="rear" default="false"/>
+    <arg name="rear" default="true"/>
     <!-- <arg name="map_file" default="$(find wheelchair)/maps/map_1/map.yaml" /> -->
 
     <!-- Load the wheelchair URDF model into the parameter server -->
     <param name="robot_description" textfile="$(find wheel_chair)/urdf/wheel_chair.urdf" />
-    <!-- <param name="use_sim_time" value="false"/> -->
 
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
@@ -27,8 +26,11 @@
     <include file="$(find wheelchair)/launch/rp_filter.launch" /> 
     
     <!-- RP merge -->
-    <!-- <include file="$(find wheelchair)/launch/laserscan_multi_merger.launch" /> -->
-
+    <include file="$(find wheelchair)/launch/laserscan_multi_merger.launch" />
+    
+    <!-- Scan Multi filter -->
+    <include file="$(find wheelchair)/launch/scan_multi_filter.launch" /> 
+    
     <!-- Rviz -->
     <group if="$(arg open_rviz)">
         <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find wheelchair)/rviz/wheelchair.rviz" />
