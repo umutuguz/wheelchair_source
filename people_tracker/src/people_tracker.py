@@ -74,19 +74,21 @@ class people_tracker():
 
         self.poseStamped.header = msg.header
         for TrackedPerson in msg.tracks:
-            if TrackedPerson.is_matched == True and TrackedPerson.track_id == 0:
-                # if TrackedPerson.track_id == 0:
+            # if TrackedPerson.is_matched == True and TrackedPerson.track_id == 0:
+            if TrackedPerson.track_id == 0:
                 self.tracking_status = True
                 self.poseStamped.pose.position = TrackedPerson.pose.pose.position
                 self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
                 # rospy.loginfo(TrackedPerson.track_id)
             elif TrackedPerson.is_matched == True and TrackedPerson.track_id != 0:
                 self.tracking_status = True
+                self.poseStamped.pose.position = TrackedPerson.pose.pose.position
+                self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
                 # self.poseStamped.pose.position = TrackedPerson.pose.pose.position
                 # self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
                 # rospy.loginfo(TrackedPerson.track_id)
-            
-            # rospy.loginfo(TrackedPerson.track_id)
+            else:
+                self.tracking_status = True
     
     def compute_dist(self):
         

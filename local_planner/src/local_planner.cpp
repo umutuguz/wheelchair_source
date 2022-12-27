@@ -173,19 +173,20 @@ namespace local_planner
         double coefVel;
         double linearVelocity;
 
-        coefVel = 0.5;
+        coefVel = 0.7;
 
         if (dmin > 6)
             dmin_temp = 6;
-        else if (dmin <= 0.1)
-            dmin_temp = 0.11;
+        else if (dmin <= 0.15)
+            dmin_temp = 0.151;
         else
             dmin_temp = dmin;
 
         phiFinal_temp = abs(phiFinal);
 
         // linearVel = 0.3 * ((0.292 * log((10 * dmin_temp) + 1)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 8.01));
-        linearVel = (coefVel * ((0.7 * log((4 * (dmin_temp - 0.1)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 5.0))) + 0.1;
+        // linearVel = (coefVel * ((0.7 * log((4 * (dmin_temp - 0.1)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 5.0))) + 0.1;
+        linearVel = (coefVel * ((0.7 * log((3.5 * (dmin_temp - 0.15)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 6.5))) + 0.01;
         // angularVel = phiFinal * 0.5 * (exp(dmin_temp - 10) - exp(-4 * dmin_temp) + 1);
         // angularVel = phiFinal * coefVel * (exp(dmin_temp - 10) - exp(-1 * dmin_temp) + (0.1 / (dmin_temp + 0.1)) + 1);
         angularVel = 0.75 * phiFinal * coefVel * ((exp(-4 * dmin_temp) / 2) + 1);
