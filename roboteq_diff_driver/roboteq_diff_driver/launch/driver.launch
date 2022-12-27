@@ -9,7 +9,7 @@
     <!-- specify odom frame -->
     <param name="odom_frame" value="odom" />
     <!-- specify base frame -->
-    <param name="base_frame" value="base_link" />
+    <param name="base_frame" value="base_footprint" />
     <!-- specify cmd_vel topic -->
     <param name="cmdvel_topic" value="cmd_vel" />
     <!-- specify port for roboteq controller -->

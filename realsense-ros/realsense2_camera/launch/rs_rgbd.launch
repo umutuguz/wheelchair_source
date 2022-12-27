@@ -86,7 +86,7 @@ Processing enabled by this node:
 
   <arg name="initial_reset"             default="true"/>
 
-  <arg name="publish_tf"          default="true"/>
+  <arg name="publish_tf"          default="false"/>
   <arg name="tf_publish_rate"     default="0"/> <!-- 0 - static transform -->
 
   <!-- rgbd_launch specific arguments -->

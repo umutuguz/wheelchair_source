@@ -25,7 +25,7 @@ class people_tracker():
         self.tracking_status = False
         self.diffX = 0.0
         self.diffY = 0.0
-        self.set_point = -2.0
+        self.set_point = -1.5
         self.theta = 0.0
         self.theta_laser = 0.0
         self.pose_theta = 0.0
