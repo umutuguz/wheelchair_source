@@ -386,12 +386,13 @@ Stephen Brawner (brawner@gmail.com)
       </geometry>
     </collision>
   </link>
+  <!-- -0.0013615 -->
   <joint
     name="rp_laser_front_joint"
     type="fixed">
     <origin
       xyz="0.72155 0.0046595 -0.074152"
-      rpy="0 0 -0.0013615" />
+      rpy="0 0 0.01" />
     <parent
       link="base_link" />
     <child

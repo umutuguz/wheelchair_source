@@ -736,9 +736,9 @@ ROS_DEBUG("");
 #endif
 
   // determine deltas of distance and angle
-  float linear = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference + (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / 20.0;
+  float linear = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference + (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / 21.0;
 //  float angular = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / track_width * -1.0;
-  float angular = ((float)odom_encoder_left / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_right / (float)encoder_cpr * wheel_circumference) / (track_width * 10.0);
+  float angular = ((float)odom_encoder_left / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_right / (float)encoder_cpr * wheel_circumference) / (track_width * 11.0);
 //  float angular = ((float)odom_encoder_left / (float)encoder_cpr - (float)odom_encoder_right / (float)encoder_cpr) / (track_width * 20.0);
 #ifdef _ODOM_DEBUG
 /*

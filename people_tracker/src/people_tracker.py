@@ -80,10 +80,8 @@ class people_tracker():
                 self.poseStamped.pose.position = TrackedPerson.pose.pose.position
                 self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
                 # rospy.loginfo(TrackedPerson.track_id)
-            elif TrackedPerson.is_matched == True and TrackedPerson.track_id != 0:
-                self.tracking_status = True
-                self.poseStamped.pose.position = TrackedPerson.pose.pose.position
-                self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
+            # elif TrackedPerson.is_matched == True and TrackedPerson.track_id != 0:
+                # self.tracking_status = True
                 # self.poseStamped.pose.position = TrackedPerson.pose.pose.position
                 # self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
                 # rospy.loginfo(TrackedPerson.track_id)

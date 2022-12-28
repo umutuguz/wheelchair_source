@@ -189,7 +189,7 @@ namespace local_planner
         linearVel = (coefVel * ((0.7 * log((3.5 * (dmin_temp - 0.15)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 6.5))) + 0.01;
         // angularVel = phiFinal * 0.5 * (exp(dmin_temp - 10) - exp(-4 * dmin_temp) + 1);
         // angularVel = phiFinal * coefVel * (exp(dmin_temp - 10) - exp(-1 * dmin_temp) + (0.1 / (dmin_temp + 0.1)) + 1);
-        angularVel = 0.75 * phiFinal * coefVel * ((exp(-4 * dmin_temp) / 2) + 1);
+        angularVel = 0.75 * phiFinal * coefVel * ((exp(-4 * dmin_temp) / 2.0) + 1);
 
         linearVelocity = min(linearVel, cmdPtr_);
         // linearVelocity = min(10.0, cmdPtr_);
@@ -973,7 +973,7 @@ namespace local_planner
         // ROS_WARN_STREAM("Gap existance: " << isGapExist_);
         // ROS_WARN_STREAM("Phi final: " << phiFinal);
 
-        double alpha_weight = 0.75;
+        double alpha_weight = 0.85;
         //double beta_weight = 2.8;
         phiFinal = (((alpha_weight / exp(dmin)) * (phi_gap * M_PI/180)) + (phiGoal * M_PI/180)) / (alpha_weight / exp(dmin) + 1);
         // phiFinal = phi_gap;
