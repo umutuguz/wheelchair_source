@@ -3,13 +3,15 @@
 
 PLUGINLIB_EXPORT_CLASS(local_planner::LocalPlanner, nav_core::BaseLocalPlanner)
 
+double x_buf[2] = {0.0, 0.0};
+double y_buf[2] = {0.0, 0.0};
 namespace local_planner
 {
     LocalPlanner::LocalPlanner() : costmapROS_(NULL), tf_(NULL), initialized_(false) {}
 
     LocalPlanner::LocalPlanner(std::string name, tf2_ros::Buffer *tf,
                                costmap_2d::Costmap2DROS *costmapROS)
-        : costmapROS_(NULL), tf_(NULL), initialized_(false), goalDistTolerance_(1)
+        : costmapROS_(NULL), tf_(NULL), initialized_(false), goalDistTolerance_(11)
 
     {
         ROS_INFO("The structure of the local planner was constructed.");
@@ -172,8 +174,11 @@ namespace local_planner
         double phiFinal_temp;
         double coefVel;
         double linearVelocity;
+        double alpha;
 
-        coefVel = 0.7;
+        alpha = 0.1535;
+
+        coefVel = 1.0;
 
         if (dmin > 6)
             dmin_temp = 6;
@@ -200,19 +205,24 @@ namespace local_planner
             linearVelocity = 0.0;
         }
 
+        x_buf[1] = x_buf[0];
+        x_buf[0] = linearVelocity;
+        y_buf[1] = y_buf[0];
+
+        y_buf[0] = y_buf[1] * (1 - alpha) + alpha * x_buf[0];
+        linearVelocity = y_buf[0];
+
         ROS_INFO_STREAM("Lineer velocity: " << linearVelocity);
         ROS_INFO_STREAM("Angular velocity: " << angularVel);
         ROS_INFO_STREAM("dmin: " << dmin_temp);
 
         // Send velocity commands to robot's base
         cmd_vel.linear.x = linearVelocity;
-        // cmd_vel.linear.x = 0.0;
         cmd_vel.linear.y = 0.0;
         cmd_vel.linear.z = 0.0;
 
         cmd_vel.angular.x = 0.0;
         cmd_vel.angular.y = 0.0;
-        // cmd_vel.angular.z = 0.0;
         cmd_vel.angular.z = angularVel;
 
         if (distanceToGlobalGoal() < goalDistTolerance_)
@@ -238,13 +248,11 @@ namespace local_planner
                 {
                     // Use the last refence cmd_vel command
                     cmd_vel.linear.x = linearVelocity;
-                    // cmd_vel.linear.x = 0.0;
                     cmd_vel.linear.y = 0.0;
                     cmd_vel.linear.z = 0.0;
 
                     cmd_vel.angular.x = 0.0;
                     cmd_vel.angular.y = 0.0;
-                    // cmd_vel.angular.z = 0.0;
                     cmd_vel.angular.z = angularVel;
                     ROS_INFO("Gap yok, globale gidiyor.");
                 }
