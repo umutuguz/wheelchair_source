@@ -19,13 +19,15 @@ class people_tracker():
         self.pose_subscriber = rospy.Subscriber('/amcl_pose', PoseWithCovarianceStamped, self.pose_callback)
         self.tracker_subscriber = rospy.Subscriber('/tracked_persons', TrackedPersons, self.tracker_callback)
         self.poseStamped = PoseStamped()
+        self.poseStampedTemp = PoseStamped()
         self.trackedPersons = TrackedPersons()
         self.poseWithCovarienceStamped = PoseWithCovarianceStamped()
         self.distToGoal = 0.0
         self.tracking_status = False
+        self.status = 0
         self.diffX = 0.0
         self.diffY = 0.0
-        self.set_point = -2.0
+        self.set_point = -1.5
         self.theta = 0.0
         self.theta_laser = 0.0
         self.pose_theta = 0.0
@@ -74,19 +76,22 @@ class people_tracker():
 
         self.poseStamped.header = msg.header
         for TrackedPerson in msg.tracks:
-            # if TrackedPerson.is_matched == True and TrackedPerson.track_id == 0:
-            if TrackedPerson.track_id == 0:
+            if TrackedPerson.is_matched == True and TrackedPerson.track_id == 0:
+            # if TrackedPerson.track_id == 0:
+                self.status = 1
                 self.tracking_status = True
                 self.poseStamped.pose.position = TrackedPerson.pose.pose.position
                 self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
-                # rospy.loginfo(TrackedPerson.track_id)
-            # elif TrackedPerson.is_matched == True and TrackedPerson.track_id != 0:
-                # self.tracking_status = True
-                # self.poseStamped.pose.position = TrackedPerson.pose.pose.position
-                # self.poseStamped.pose.orientation = TrackedPerson.pose.pose.orientation
-                # rospy.loginfo(TrackedPerson.track_id)
+                self.poseStampedTemp.pose.position = TrackedPerson.pose.pose.position
+                self.poseStampedTemp.pose.orientation = TrackedPerson.pose.pose.orientation    
+            elif TrackedPerson.is_matched == False and TrackedPerson.track_id == 0:
+                self.tracking_status = True
+                self.status = 2
+                self.poseStamped.pose.position = self.poseStampedTemp.pose.position
+                self.poseStamped.pose.orientation = self.poseStampedTemp.pose.orientation
             else:
                 self.tracking_status = True
+                self.status = 3
     
     def compute_dist(self):
         

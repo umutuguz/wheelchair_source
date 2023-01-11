@@ -5,6 +5,8 @@ PLUGINLIB_EXPORT_CLASS(local_planner::LocalPlanner, nav_core::BaseLocalPlanner)
 
 double x_buf[2] = {0.0, 0.0};
 double y_buf[2] = {0.0, 0.0};
+double xx_buf[2] = {0.0, 0.0};
+double yy_buf[2] = {0.0, 0.0};
 namespace local_planner
 {
     LocalPlanner::LocalPlanner() : costmapROS_(NULL), tf_(NULL), initialized_(false) {}
@@ -175,8 +177,10 @@ namespace local_planner
         double coefVel;
         double linearVelocity;
         double alpha;
+        double beta;
 
         alpha = 0.1535;
+        beta = 0.8;
 
         coefVel = 1.0;
 
@@ -194,7 +198,7 @@ namespace local_planner
         linearVel = (coefVel * ((0.7 * log((3.5 * (dmin_temp - 0.15)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 6.5))) + 0.01;
         // angularVel = phiFinal * 0.5 * (exp(dmin_temp - 10) - exp(-4 * dmin_temp) + 1);
         // angularVel = phiFinal * coefVel * (exp(dmin_temp - 10) - exp(-1 * dmin_temp) + (0.1 / (dmin_temp + 0.1)) + 1);
-        angularVel = 0.75 * phiFinal * coefVel * ((exp(-4 * dmin_temp) / 2.0) + 1);
+        angularVel = 0.75 * phiFinal * coefVel * ((exp(-6 * dmin_temp) / 2.0) + 1);
 
         linearVelocity = min(linearVel, cmdPtr_);
         // linearVelocity = min(10.0, cmdPtr_);
@@ -211,6 +215,13 @@ namespace local_planner
 
         y_buf[0] = y_buf[1] * (1 - alpha) + alpha * x_buf[0];
         linearVelocity = y_buf[0];
+
+        xx_buf[1] = xx_buf[0];
+        xx_buf[0] = angularVel;
+        yy_buf[1] = yy_buf[0];
+
+        yy_buf[0] = yy_buf[1] * (1 - beta) + beta * xx_buf[0];
+        angularVel = yy_buf[0];
 
         ROS_INFO_STREAM("Lineer velocity: " << linearVelocity);
         ROS_INFO_STREAM("Angular velocity: " << angularVel);
@@ -872,7 +883,14 @@ namespace local_planner
                 beta_temp = 162.01;
                 ROS_INFO_STREAM("beta_temp at: " << beta_temp);
             d2_temp = currRange.at(round(beta_temp*(344.0/163.0)));
-
+            if (alpha_temp == 0)
+            {
+                d1_temp = d2_temp;
+            }
+            if (beta_temp == 162.01)
+            {
+                d2_temp = d1_temp;
+            }
             memory_array[i][0] = lidar_coord_x - d1_temp*cos(M_PI*(robot_pose_theta + (alpha_temp+8.5))/180.0);
             memory_array[i][1] = lidar_coord_y + d1_temp*sin(M_PI*(robot_pose_theta + (alpha_temp+8.5))/180.0);
             memory_array[i][2] = lidar_coord_x - d2_temp*cos(M_PI*(robot_pose_theta + (beta_temp+8.5))/180.0);
@@ -981,7 +999,7 @@ namespace local_planner
         // ROS_WARN_STREAM("Gap existance: " << isGapExist_);
         // ROS_WARN_STREAM("Phi final: " << phiFinal);
 
-        double alpha_weight = 0.85;
+        double alpha_weight = 0.5;
         //double beta_weight = 2.8;
         phiFinal = (((alpha_weight / exp(dmin)) * (phi_gap * M_PI/180)) + (phiGoal * M_PI/180)) / (alpha_weight / exp(dmin) + 1);
         // phiFinal = phi_gap;
