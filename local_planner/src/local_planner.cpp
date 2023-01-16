@@ -409,7 +409,12 @@ namespace local_planner
 
         // dmin = currRange.at(dminIdx);
         dmin = currRange.at(dminIdx+75);
-        // ROS_INFO_STREAM("curRangesize is " << currRange.size());
+
+        if (dmin <= 0.01)
+        {
+            dmin = 0.01;
+        }
+        ROS_INFO_STREAM("dmin is " << dmin);
         // for (unsigned int i = 0; i < currRange.size(); i++)
         // {
         //     ROS_INFO_STREAM("currrange vector is: "<< currRange[i] << "for index : " << i);
@@ -988,6 +993,15 @@ namespace local_planner
             d2 = currRange.at(round(alpha*(344.0/163.0)));
         }
         ROS_INFO_STREAM("d2 2: " << d2);
+
+        if (alpha == 0)
+        {
+            d1 = d2;
+        }
+        if (beta == 162.01)
+        {
+            d2 = d1;
+        }
 
         // ROS_INFO_STREAM("alpha is: " << alpha << "beta is : " << beta << "sqrt term is : " << d1 * d1 + d2 * d2 + 2 * d1 * d2 * cos((M_PI / 180) * beta - (M_PI / 180) * alpha));
 

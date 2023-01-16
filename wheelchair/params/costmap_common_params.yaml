@@ -3,7 +3,7 @@ raytrace_range: 4.0
 max_obstacle_height: 2.0
 min_obstacle_height: 0.0
 
-footprint: [[-0.70, -0.35], [-0.70, 0.35], [0.60, 0.35], [0.60, -0.35]]
+footprint: [[-0.65, -0.35], [-0.65, 0.35], [0.65, 0.35], [0.65, -0.35]]
 
 static:
   map_topic: /map
@@ -20,4 +20,4 @@ obstacles_laser:
 
 inflation:
   inflation_radius: 0.75
-  cost_scaling_factor: 30
+  cost_scaling_factor: 25
