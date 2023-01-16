@@ -185,17 +185,24 @@ namespace local_planner
         coefVel = 1.0;
 
         if (dmin > 6)
+        {
             dmin_temp = 6;
+        }
         else if (dmin <= 0.15)
+        {
             dmin_temp = 0.151;
+            ROS_INFO_STREAM("dmin_temp  15 cmden kucuk mu is: " << dmin_temp);
+        }
         else
+        {   
             dmin_temp = dmin;
+        }
 
         phiFinal_temp = abs(phiFinal);
 
         // linearVel = 0.3 * ((0.292 * log((10 * dmin_temp) + 1)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 8.01));
         // linearVel = (coefVel * ((0.7 * log((4 * (dmin_temp - 0.1)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 5.0))) + 0.1;
-        linearVel = (coefVel * ((0.7 * log((3.5 * (dmin_temp - 0.15)) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 6.5))) + 0.01;
+        linearVel = (coefVel * ((0.7 * log((3.5 * (abs(dmin_temp - 0.15))) + 0.0)) / (exp(0.883 * phiFinal_temp)) + (exp(1.57 - phiFinal_temp) / 6.5))) + 0.01;
         // angularVel = phiFinal * 0.5 * (exp(dmin_temp - 10) - exp(-4 * dmin_temp) + 1);
         // angularVel = phiFinal * coefVel * (exp(dmin_temp - 10) - exp(-1 * dmin_temp) + (0.1 / (dmin_temp + 0.1)) + 1);
         angularVel = 0.75 * phiFinal * coefVel * ((exp(-4.0 * dmin_temp) / 2.0) + 1.0);
@@ -203,6 +210,11 @@ namespace local_planner
         linearVelocity = min(linearVel, cmdPtr_);
         // linearVelocity = min(10.0, cmdPtr_);
         // linearVelocity = min(linearVel, 10.0);
+
+        ROS_INFO_STREAM("dmin_temp is: " << dmin_temp);
+        ROS_INFO_STREAM("linearVel is: " << linearVel);
+        ROS_INFO_STREAM("angularVel is: " << angularVel);
+        ROS_INFO_STREAM("linearVelocity is: " << linearVelocity);
 
         if (linearVelocity <= 0.0)
         {
@@ -223,9 +235,9 @@ namespace local_planner
         yy_buf[0] = yy_buf[1] * (1 - beta) + beta * xx_buf[0];
         angularVel = yy_buf[0];
 
-        ROS_INFO_STREAM("Lineer velocity: " << linearVelocity);
-        ROS_INFO_STREAM("Angular velocity: " << angularVel);
-        ROS_INFO_STREAM("dmin: " << dmin_temp);
+        // ROS_INFO_STREAM("Lineer velocity: " << linearVelocity);
+        // ROS_INFO_STREAM("Angular velocity: " << angularVel);
+        // ROS_INFO_STREAM("dmin: " << dmin_temp);
 
         // Send velocity commands to robot's base
         cmd_vel.linear.x = linearVelocity;
@@ -384,7 +396,7 @@ namespace local_planner
         reverse(currRange.begin(), currRange.end()); // kırpma işleminden sonra sağdan sola taranmış şekilde öndeki 180 derecelik veriler kalmıştı
         // ters çevrilerek ilk indeksli olan nokta sol 90derecede kalan yer olmaktadır buradan sağa doğru taranmış hale gelir.
 
-        // her lazer ölçümünden 10cm çıkartıldı (obstacle inflation)
+        // her lazer ölçümünden 25cm çıkartıldı (obstacle inflation)
         for (unsigned int i = 0; i < currRange.size() ; i++)
         {
             currRange[i] -= 0.25;
