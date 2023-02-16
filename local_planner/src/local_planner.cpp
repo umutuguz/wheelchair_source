@@ -190,7 +190,7 @@ namespace local_planner
         }
         else if (dmin <= 0.15)
         {
-            dmin_temp = 0.151;
+            dmin_temp = 0.151; //dmin 0.15ten kücük gelirse linearvel angularvel kısımlarında sorun oluyordu.
             ROS_INFO_STREAM("dmin_temp  15 cmden kucuk mu is: " << dmin_temp);
         }
         else
@@ -226,13 +226,13 @@ namespace local_planner
         y_buf[1] = y_buf[0];
 
         y_buf[0] = y_buf[1] * (1 - alpha) + alpha * x_buf[0];
-        linearVelocity = y_buf[0];
+        linearVelocity = y_buf[0]; //linear hız denklemden gelen alınır önce, sonra bir önceki cycledaki linear hız ile alpha, 1-alpha oranında birleştirilir.
 
         xx_buf[1] = xx_buf[0];
         xx_buf[0] = angularVel;
         yy_buf[1] = yy_buf[0];
 
-        yy_buf[0] = yy_buf[1] * (1 - beta) + beta * xx_buf[0];
+        yy_buf[0] = yy_buf[1] * (1 - beta) + beta * xx_buf[0]; //aynısı angular hız için beta kullanılarak yapılır.
         angularVel = yy_buf[0];
 
         // ROS_INFO_STREAM("Lineer velocity: " << linearVelocity);
@@ -369,7 +369,7 @@ namespace local_planner
 
 
         double goalX = currentGoalPose_.position.x;
-        double goalY = currentGoalPose_.position.y;;
+        double goalY = currentGoalPose_.position.y;
 
 
         // Get laser ranges
@@ -994,7 +994,7 @@ namespace local_planner
         }
         ROS_INFO_STREAM("d2 2: " << d2);
 
-        if (alpha == 0)
+        if (alpha == 0.0)
         {
             d1 = d2;
         }
