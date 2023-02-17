@@ -207,9 +207,9 @@ namespace local_planner
         // angularVel = phiFinal * coefVel * (exp(dmin_temp - 10) - exp(-1 * dmin_temp) + (0.1 / (dmin_temp + 0.1)) + 1);
         angularVel = 0.75 * phiFinal * coefVel * ((exp(-4.0 * dmin_temp) / 2.0) + 1.0);
 
-        linearVelocity = min(linearVel, cmdPtr_);
+        // linearVelocity = min(linearVel, cmdPtr_);
         // linearVelocity = min(10.0, cmdPtr_);
-        // linearVelocity = min(linearVel, 10.0);
+        linearVelocity = min(linearVel, 10.0);
 
         ROS_INFO_STREAM("dmin_temp is: " << dmin_temp);
         ROS_INFO_STREAM("linearVel is: " << linearVel);
