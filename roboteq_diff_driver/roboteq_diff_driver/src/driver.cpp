@@ -597,8 +597,8 @@ void MainNode::odom_loop()
           if (odom_buf[delim] == ':')
           {
             odom_buf[delim] = 0;
-            odom_encoder_right = (int32_t)strtol(odom_buf+3, NULL, 10);
-            odom_encoder_left = (int32_t)strtol(odom_buf+delim+1, NULL, 10);
+            odom_encoder_left = (int32_t)strtol(odom_buf+3, NULL, 10);
+            odom_encoder_right = (int32_t)strtol(odom_buf+delim+1, NULL, 10);
 #ifdef _ODOM_DEBUG
 ROS_DEBUG_STREAM("encoder right: " << odom_encoder_right << " left: " << odom_encoder_left);
 #endif
@@ -734,12 +734,14 @@ ROS_DEBUG(dt);
 ROS_DEBUG("");
 */
 #endif
-
+  ROS_DEBUG_STREAM("odom_encoder_right is: " << odom_encoder_right << "odom_encoder_left is : " << odom_encoder_left);
   // determine deltas of distance and angle
   float linear = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference + (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / 21.0;
+  // float linear = (((float)odom_encoder_right / (float)encoder_cpr) / 0.162) + (((float)odom_encoder_left / (float)encoder_cpr) / 0.162) * 0.162 / 2.0;
 //  float angular = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / track_width * -1.0;
-  float angular = ((float)odom_encoder_left / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_right / (float)encoder_cpr * wheel_circumference) / (track_width * 11.0);
-//  float angular = ((float)odom_encoder_left / (float)encoder_cpr - (float)odom_encoder_right / (float)encoder_cpr) / (track_width * 20.0);
+  float angular = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / (track_width * 11.0);
+  // float angular = (((float)odom_encoder_left / (float)encoder_cpr) / 0.162) - (((float)odom_encoder_right / (float)encoder_cpr) / 0.162) * 0.162 / track_width;
+//  float angular = ((float)odom_encoder_left / (float)encoder_cpr - (float)odom_encoder_right / (float)encoder_cpr)*wheel_circumference / (track_width * 20.0);
 #ifdef _ODOM_DEBUG
 /*
 ROS_DEBUG("linear: ");
@@ -751,9 +753,11 @@ ROS_DEBUG("");
 #endif
 
   // Update odometry
+  
   odom_x += linear * cos(odom_yaw);        // m
   odom_y += linear * sin(odom_yaw);        // m
   odom_yaw = NORMALIZE(odom_yaw + angular);  // rad
+
 #ifdef _ODOM_DEBUG
 //ROS_DEBUG_STREAM( "odom x: " << odom_x << " y: " << odom_y << " yaw: " << odom_yaw );
 #endif

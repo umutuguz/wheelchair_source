@@ -6,6 +6,8 @@
     <!-- Gmapping -->
     <include file="$(find wheelchair)/launch/gmapping.launch" />
 
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_broadcaster" args="-0.40 0.0 0.15345 0 0 0 base_footprint base_link 10" /> -->
+
     <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find wheelchair)/rviz/wheelchair_gmapping.rviz" />
 
 </launch>
