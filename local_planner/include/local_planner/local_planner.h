@@ -5,7 +5,8 @@
 #include <ros/ros.h>
 #include <nav_core/base_local_planner.h>
 
-
+#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
 #include <tf2_ros/buffer.h>
 #include <costmap_2d/costmap_2d.h>
 #include <costmap_2d/costmap_2d_ros.h>
@@ -13,13 +14,16 @@
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_listener.h>
 #include <nav_msgs/Odometry.h>
+#include <nav_msgs/OccupancyGrid.h>
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/Point.h>
 #include <nav_msgs/Path.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float64.h>
 #include <tf/tfMessage.h>
+#include <gazebo_msgs/ContactsState.h>
 
 #include <boost/shared_ptr.hpp>
 #include <base_local_planner/goal_functions.h>
@@ -30,6 +34,7 @@
 #include <cmath>
 #include <algorithm>
 #include <exception>
+#include <deque>
 
 using namespace std;
 
@@ -60,6 +65,10 @@ public:
     void poseCallback(boost::shared_ptr<geometry_msgs::PoseWithCovarianceStamped const> msg);
     
     void cmdCallback(const std_msgs::Float64::ConstPtr& msg);
+
+    void collisionCallback(const gazebo_msgs::ContactsState::ConstPtr& msg);
+
+    void costmapCallback(const nav_msgs::OccupancyGrid::ConstPtr& costmap_msg);
 
     double distanceToGlobalGoal();
 
@@ -93,20 +102,29 @@ private:
     
     // Sensor subscriptions
     ros::Subscriber odomSub_;
+    ros::Subscriber multiScanSub_;
     ros::Subscriber scanSub_;
     ros::Subscriber poseSub_;
     ros::Subscriber cmdSub_;
+    ros::Subscriber collisionSub_;
+    ros::Subscriber costmapSub_;
     boost::shared_ptr<nav_msgs::Odometry const> odomPtr_;
     boost::shared_ptr<sensor_msgs::LaserScan const> scanPtr_;
+    boost::shared_ptr<sensor_msgs::LaserScan const> scanMultiPtr_;
     boost::shared_ptr<geometry_msgs::PoseWithCovarianceStamped const> posePtr_;
+    boost::shared_ptr<nav_msgs::OccupancyGrid const> costmapPtr_;
     double cmdPtr_;
 
     // Publishers
     ros::Publisher globalPlanPub_;
     ros::Publisher distToGoalPub_;
     ros::Publisher wRefPub_;
+    ros::Publisher marker_pub_;
+    ros::Publisher virtual_lidar_pub_;
 
     double lookAheadDist_ = 1.1;
+    int collision_counter = 0;
+    double dist_travelled = 0.0;
     double goalDistTolerance_;
     int currentGoalPoseIdx_;
     bool isGapExist_;
