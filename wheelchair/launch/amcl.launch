@@ -1,13 +1,13 @@
 <launch>
     <!-- Arguments -->
-    <arg name="scan_topic"     default="scan_multi_filtered"/>
-    <!-- <arg name="scan_topic"     default="/front_rp/rp_scan_filtered_front"/> -->
+    <!-- <arg name="scan_topic"     default="scan_multi_filtered"/> -->
+    <arg name="scan_topic"     default="/front_rp/rp_scan_filtered_front"/>
     <arg name="odom_frame"     default="odom"/>
     <arg name="base_frame"     default="base_footprint"/>
-    <arg name="initial_pose_x" default="0.0"/>
-    <arg name="initial_pose_y" default="0.5"/>
+    <arg name="initial_pose_x" default="2.0"/>
+    <arg name="initial_pose_y" default="-13.0"/>
     <!-- <arg name="initial_pose_a" default="-1.571"/> -->
-    <arg name="initial_pose_a" default="0.0"/>
+    <arg name="initial_pose_a" default="-1.57079632679"/>
   
     <!-- AMCL -->
     <node pkg="amcl" type="amcl" name="amcl">
@@ -30,10 +30,10 @@
       <param name="gui_publish_rate"          value="50.0"/>
   
       <remap from="scan"                      to="$(arg scan_topic)"/>
-      <param name="laser_min_range"           value="-1"/>
-      <param name="laser_max_range"           value="-1"/>
-      <!-- <param name="laser_max_range"           value="5.5"/> -->
-      <param name="laser_max_beams"           value="180"/>
+      <param name="laser_min_range"           value="0.2"/>
+      <!-- <param name="laser_max_range"           value="-1"/> -->
+      <param name="laser_max_range"           value="5.5"/>
+      <param name="laser_max_beams"           value="800"/>
       <!-- <param name="laser_max_beams"           value="760"/> -->
       <param name="laser_z_hit"               value="0.5"/>
       <param name="laser_z_short"             value="0.05"/>
@@ -45,10 +45,10 @@
       <param name="laser_model_type"          value="likelihood_field"/>
   
       <param name="odom_model_type"           value="diff"/>
-      <param name="odom_alpha1"               value="0.5"/>
-      <param name="odom_alpha2"               value="0.5"/>
-      <param name="odom_alpha3"               value="0.5"/>
-      <param name="odom_alpha4"               value="0.5"/>
+      <param name="odom_alpha1"               value="0.1"/>
+      <param name="odom_alpha2"               value="0.1"/>
+      <param name="odom_alpha3"               value="0.1"/>
+      <param name="odom_alpha4"               value="0.1"/>
       <param name="odom_frame_id"             value="$(arg odom_frame)"/>
       <param name="base_frame_id"             value="$(arg base_frame)"/>
   

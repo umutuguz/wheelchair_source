@@ -15,6 +15,7 @@
 
   <!-- move_base -->
   <include file="$(find wheelchair)/launch/move_base.launch">
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch"></include>
     <!-- <arg name="move_forward_only" value="$(arg move_forward_only)"/> -->
   </include>
 

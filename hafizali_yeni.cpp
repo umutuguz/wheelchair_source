@@ -280,7 +280,7 @@ namespace local_planner
             ROS_WARN_STREAM("Hiyaa!");
             if(dminIdx < 172)
             {
-                cmd_vel.linear.x = 0.25;
+                cmd_vel.linear.x = 0.1;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -288,11 +288,11 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = 0.30;
+                cmd_vel.angular.z = 0.13;
             }
             else
             {
-                cmd_vel.linear.x = 0.25;
+                cmd_vel.linear.x = 0.1;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -300,17 +300,17 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = -0.3;
+                cmd_vel.angular.z = -0.13;
             }
         }
         else if (dmin < 1.0 && dmin > 0.75)
         {
             ROS_WARN_STREAM("We are in low dmin!");
-            if(dminIdx <= 172)
+            if(dminIdx <= 172 && dminIdx > 100)
             {
                 ROS_ERROR_STREAM("here1!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = 0.25;
+                cmd_vel.linear.x = 0.1;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -318,13 +318,13 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = 0.3;
+                cmd_vel.angular.z = 0.13;
             }
-            else if(dminIdx > 172)
+            else if(dminIdx > 172 && dminIdx < 244)
             {
                 ROS_ERROR_STREAM("here2!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = 0.25;
+                cmd_vel.linear.x = 0.1;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -332,13 +332,13 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = -0.3;
+                cmd_vel.angular.z = -0.13;
             }
             else
             {
                 ROS_ERROR_STREAM("here3!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = linearVelocity/3;
+                cmd_vel.linear.x = linearVelocity*0.5;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -346,7 +346,7 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = angularVel/3;
+                cmd_vel.angular.z = angularVel*1.5;
             }
         }
         else if (dmin <= 0.75)
@@ -356,7 +356,7 @@ namespace local_planner
             {
                 ROS_ERROR_STREAM("here4!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = 0.2;
+                cmd_vel.linear.x = 0.08;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -364,13 +364,13 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = -0.25;
+                cmd_vel.angular.z = -0.15;
             }
             else if(dminIdx > 172)
             {
                 ROS_ERROR_STREAM("here5!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = 0.2;
+                cmd_vel.linear.x = 0.08;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -378,13 +378,13 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = 0.25;
+                cmd_vel.angular.z = 0.15;
             }
             else
             {
                 ROS_ERROR_STREAM("here6!");
                 // Send velocity commands to robot's base
-                cmd_vel.linear.x = linearVelocity/3;
+                cmd_vel.linear.x = linearVelocity*0.5;
                 // cmd_vel.linear.x = 0.0;
                 cmd_vel.linear.y = 0.0;
                 cmd_vel.linear.z = 0.0;
@@ -392,13 +392,13 @@ namespace local_planner
                 cmd_vel.angular.x = 0.0;
                 cmd_vel.angular.y = 0.0;
                 // cmd_vel.angular.z = 0.0;
-                cmd_vel.angular.z = angularVel/3;
+                cmd_vel.angular.z = angularVel*1.5;
             }
         }
         else
         {
             // Send velocity commands to robot's base
-            cmd_vel.linear.x = linearVelocity/2;
+            cmd_vel.linear.x = linearVelocity;
             // cmd_vel.linear.x = 0.0;
             cmd_vel.linear.y = 0.0;
             cmd_vel.linear.z = 0.0;
@@ -406,7 +406,7 @@ namespace local_planner
             cmd_vel.angular.x = 0.0;
             cmd_vel.angular.y = 0.0;
             // cmd_vel.angular.z = 0.0;
-            cmd_vel.angular.z = angularVel/3;
+            cmd_vel.angular.z = angularVel;
         }
 
         if (distanceToGlobalGoal() < goalDistTolerance_ + 2)
@@ -1614,7 +1614,7 @@ namespace local_planner
         // ROS_WARN_STREAM("Gap existance: " << isGapExist_);
         // ROS_WARN_STREAM("Phi final: " << phiFinal);
 
-        double alpha_weight = 18;
+        double alpha_weight = 12;
         //double beta_weight = 2.8;
         phiFinal = (((alpha_weight / exp(dmin)) * (phi_gap * M_PI/180)) + (phiGoal * M_PI/180)) / (alpha_weight / exp(dmin) + 1);
         // phiFinal = phi_gap;

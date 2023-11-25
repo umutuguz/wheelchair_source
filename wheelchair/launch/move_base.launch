@@ -13,6 +13,7 @@
     <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
     <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
     <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /> -->
+    <param name="base_global_planner" value="navfn/NavfnROS" />
     <rosparam file="$(find wheelchair)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find wheelchair)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find wheelchair)/params/local_costmap_params.yaml" command="load" />
@@ -26,7 +27,7 @@
     <remap from="odom" to="$(arg odom_topic)" />
     <remap from="scan" to="$(arg scan_topic)" />
 
-    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+    <!-- <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" /> -->
   </node>
 </launch>
   

@@ -6,14 +6,16 @@ scan_filter_chain:
       lower_angle: -1.4835
       # lower_angle: -3.14
       # upper_angle: 3.14
-      upper_angle: 1.36
+      upper_angle: 1.365
+      # lower_angle: -1.4224433404
+      # upper_angle: 1.4224433404
 
   - name: range
     type: laser_filters/LaserScanRangeFilter
     params:
       use_message_range_limits: false
       lower_threshold: 0.20
-      upper_threshold: 8.0
+      upper_threshold: 3.5
       lower_replacement_value: -.inf
       upper_replacement_value: .inf
   

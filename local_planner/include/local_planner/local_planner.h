@@ -23,7 +23,6 @@
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float64.h>
 #include <tf/tfMessage.h>
-#include <gazebo_msgs/ContactsState.h>
 
 #include <boost/shared_ptr.hpp>
 #include <base_local_planner/goal_functions.h>
@@ -65,8 +64,6 @@ public:
     void poseCallback(boost::shared_ptr<geometry_msgs::PoseWithCovarianceStamped const> msg);
     
     void cmdCallback(const std_msgs::Float64::ConstPtr& msg);
-
-    void collisionCallback(const gazebo_msgs::ContactsState::ConstPtr& msg);
 
     void costmapCallback(const nav_msgs::OccupancyGrid::ConstPtr& costmap_msg);
 
